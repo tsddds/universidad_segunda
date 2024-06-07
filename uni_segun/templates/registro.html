@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/bootstrap-5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/estilos_registrarse.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cheatsheet/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link rel="stylesheet" href="assets/css/estilos_registrarse.css">
+    
+    <title>ReShop Nero</title>
+    <link rel="icon" href="assets/imgs/logo.png" type="image/x-icon" style="border-radius: 50%; object-fit: cover;">
+    <style>
+        #errorRun{visibility: hidden;color:red;}
+        #errorTelefono{visibility: hidden;color:red;}
+    </style>
+</head>
+<body>
+    <div><h1 class="mb-3">Registro</h1></div>
+    <div class="container ">
+        <div class="row justify-content-center ms-0 p-0 mb-10px">
+            <div class="col-md-5"><!-- columna -->   
+
+                <form class="border bg-body-tertiary p-md-4 rounded-3 col-12"> <!-- color, padding y el redondeo de la eesquina -->  
+                    <!-- fila 1 -->
+                    <div class="row mb-3">  <!-- area de la fila -->
+
+                        <div class="col-md-3 "></div>
+
+                        <div class="col-md-7"><!-- tamaño del input text -->
+                            <label for="validationCustom01" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="validationCustom01" required>
+                        </div>
+                            
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <!-- fila 2 -->
+                    <div class="row mb-3"> <!-- area de la fila -->
+
+                        <div class="col-md-3"></div>
+
+                        <div class="col-md-7"><!-- tamaño del input text -->
+                            <label for="validationCustom02" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="validationCustom02" required>
+                        </div>
+
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <!-- fila 3 -->
+                    <div class="row mb-3"><!-- area de la fila -->
+
+                        <div class="col-md-3"></div>
+
+                        <div class="col-md-7"><!-- tamaño del input text --> 
+                            <label for="validationCustom03" class="form-label">Rut</label> <!--validar numeros-->
+                            <input type="text" class="form-control" id="validationCustom03" required>
+                            <div id="errorRun">...</div>
+                        </div>
+
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <!-- fila 4 -->
+                    <div class="row mb-3"><!-- area de la fila -->
+
+                        <div class="col-md-3"></div>
+
+                        <div class="col-md-7"><!-- tamaño del input text --> 
+                            <label for="validationCustom07" class="form-label">Institución académica</label>
+                            <input type="text" class="form-control" id="validationCustom07" required>
+                        </div>
+
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <!-- fila 5 -->
+                    <div class="row mb-3"><!-- area de la fila -->
+
+                        <div class="col-md-3"></div>
+
+                        <div class="col-md-7"><!-- tamaño del bton text --> 
+                            <label for="validationCustom06" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="validationCustom06" required>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <!-- fila 6 -->
+                    <div class="row mb-3"> <!-- area de la fila -->
+
+                        <div class="col-md-3"></div>
+
+                        <div class="col-md-7"><!-- tamaño del input text -->
+                            <label for="validationCustom05" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="validationCustom05" required>
+                        </div>
+
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <!-- fila 7 -->
+                    <div class="row mb-3 mb-2"><!-- area de la fila -->
+                        <div class="col-md-3"></div>
+                        <div class="col-md-7"><!-- tamaño del input text --> 
+                            <label for="validationCustom04" class="form-label">Número Telefonico</label> <!--que sean numeros-->
+                            <input type="text" class="form-control" id="validationCustom04" required>
+                            <div id="errorTelefono">...</div> 
+                        </div>
+
+                        <div class="col-md-3"></div>
+                    </div>
+
+                    <!-- fila 8 -->
+                <div class="row mb-3">
+                    <div class="col-md-3">
+
+                    </div class="col-md-6"  >  
+                    <input id="btnEnviar" value="Registrarse" type="submit" class="btn btn-warning"></input>
+                    </div>
+
+                    <div class="col-md-3"></div>
+                </div>    
+                </form><!-- form con el color del formulario -->
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/validacionRegistro.js"></script>
+
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
