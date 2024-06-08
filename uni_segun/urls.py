@@ -10,7 +10,10 @@ urlpatterns = [
     path('formadepago/', views.formadepago, name='formadepago'),
     path('inicioUsuario/', views.inicioUsuario, name='inicioUsuario'),
     path('paginaProductoPrueva/', views.paginaProductoPrueva, name='paginaProductoPrueva'),
+
+    #subfunciones
     path('login/', views.login_view, name='login'),
     path('inicioUsuario/', views.AgregarCarro, name='AgregarCarro'),
+    path('venderProducto/', views.venderP, name='venderP'),
     
 ]

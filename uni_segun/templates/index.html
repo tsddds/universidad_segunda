@@ -41,7 +41,7 @@
     <div class="sticky-top">
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html"><img src="{% static 'imgs/logo.png' %}" alt="" style="height: 50px; width: 50px;"> Reshop Nero</a>
+                <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'imgs/logo.png' %}" alt="" style="height: 50px; width: 50px;"> Reshop Nero</a>
                 <form class="d-flex" role="button">
                     {% csrf_token %}
                     <!-- Botón carro de compras -->
@@ -76,10 +76,10 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" href="favoritos.html">Favoritos</a>
+                                <a class="nav-link active" href="#">Favoritos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="vender.html">Vender</a>
+                                <a class="nav-link active" href="#">Vender</a>
                             </li>
                         </ul>
                     </div>
@@ -144,7 +144,7 @@
                             <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="paginaProductoPrueva.html"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
                                 <small class="text-body-secondary">$20.000</small>
@@ -161,7 +161,7 @@
                             <p class="card-text">Mangas epicos sobre historias que ni te imaginas que leerias alguna vez.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="paginaProductoPrueva.html"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
                                 <small class="text-body-secondary">$20.000</small>
@@ -178,7 +178,7 @@
                             <p class="card-text">Una computadora portátil, computador portátil u ordenador portátil.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="paginaProductoPrueva.html"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
                                 <small class="text-body-secondary">$20.000</small>
@@ -196,7 +196,7 @@
                             <p class="card-text">Representa los mejores resultados de impresión en productos de una gran calidad.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="paginaProductoPrueva.html"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
                                 <small class="text-body-secondary">$20.000</small>
@@ -213,7 +213,7 @@
                             <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="paginaProductoPrueva.html"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
                                 <small class="text-body-secondary">$20.000</small>
@@ -230,7 +230,7 @@
                             <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="paginaProductoPrueva.html"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
                                 <small class="text-body-secondary">$20.000</small>
@@ -248,7 +248,7 @@
                             <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="paginaProductoPrueva.html"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
                                 <small class="text-body-secondary">$20.000</small>
@@ -265,7 +265,7 @@
                             <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="paginaProductoPrueva.html"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
                                 <small class="text-body-secondary">$20.000</small>
@@ -282,7 +282,7 @@
                             <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="paginaProductoPrueva.html"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
                                 <small class="text-body-secondary">$20.000</small>
@@ -320,7 +320,7 @@
                     </div>
                     <div class="col-12">
                         <div class="link">
-                            <p>No tienes cuenta <a class="link-offset-3" href="registro.html">registrate</a> aqui.</p>
+                            <p>No tienes cuenta <a class="link-offset-3" href="{% url 'registro' %}">registrate</a> aqui.</p>
                         </div>
                     </div>
                 </div>
@@ -349,7 +349,7 @@
                 <!-- Grid column -->
                 <div class="col-12 col-lg-3 col-sm-12 mb-2">
                     <!-- Content -->
-                    <a href="index.html" target="_blank" class="text-white h2">
+                    <a href="{% url 'index' %}" target="_blank" class="text-white h2">
                         ReShop Nero
                     </a>
                     <p class="mt-1 text-white">

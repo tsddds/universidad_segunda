@@ -13,6 +13,9 @@ def perfil(request):
 def carrodecompra(request):
     return render(request, 'carrodecompra.html')
 
+def venderP(request):
+    return render(request, 'venderProducto.html')
+
 def formadepago(request):
     return render(request, 'formadepago.html')
 
@@ -30,6 +33,7 @@ def AgregarCarro(request):
     descripcion =  request.POST['']
     precio =  request.POST['']
     categoria = request.POST['']
+    img =  request.POST['']
 
     return render(request, 'inicioUsuario.html')
        
