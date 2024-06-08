@@ -11,4 +11,6 @@ urlpatterns = [
     path('inicioUsuario/', views.inicioUsuario, name='inicioUsuario'),
     path('paginaProductoPrueva/', views.paginaProductoPrueva, name='paginaProductoPrueva'),
     path('login/', views.login_view, name='login'),
+    path('inicioUsuario/', views.AgregarCarro, name='AgregarCarro'),
+    
 ]
