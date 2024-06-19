@@ -47,8 +47,10 @@
             <form class="d-flex" role="button">
                   <!-- Botón carro de compras -->
                   <button class="btn btn-warning position-relative" style="margin-right: 10px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-secondary">0 <span class="visually-hidden">carro</span></span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="color: white;" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                    {% for item in carrito %}
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-secondary">{{cant}}<span class="visually-hidden">carro</span></span>
+                    {% endfor %}               
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="color: white;" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
                       <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
                     </svg>
                     </button>
@@ -349,13 +351,35 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
       <div class="offcanvas-body">
-        
+        <div class="row-product">
+          {% for item in carrito %}
+          <div class="cart-product">
+              <div class="container text-center">
+                  <div class="row justify-content-start">
+                      <div class="col-4">
+                          <img src="{{ item.imagen }}" class="img-fluid" style="max-height: 60px;" alt="">
+                      </div>
+                      <div class="col-4">
+                          <h5 class="text-truncate">{{ item.nombre }}</h5>
+                          <h6><span>{{ item.cantidad }}"</span>X${{ item.precio }}</h6>
+                      </div>
+                      <div class="col-4 d-flex justify-content-center align-items-center" style="padding-left:90px;">
+                        <form action="{% url 'disminuir_producto_offcanvas' item.id %}" method="post">
+                          {% csrf_token %}
+                          <button type="submit" class="btn-close delete-btn" aria-label="Close"></button>
+                        </form>  
+                        </div>
+                  </div>
+              </div>
+          </div>
+          <hr>
+          {% endfor %}
+      </div>
       </div>
       <hr>
-      <h6 class="total-pagar justify-content-center d-flex">Total a Pagar:<span>$00.00</span></h6>
+      <h6 class="total-pagar justify-content-center d-flex">Total a Pagar:<span>${{total}}</span></h6>
       <hr>
-      <a href="{% url 'carrodecompra' %}" class="btn btn-warning desabilitado" role="button">Ver carro</a>
-</div>
+      <a href="{% url 'carrodecompra' %}" class="btn btn-warning" role="button">Ver carro</a></div></div>
 <script src="{% static 'bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

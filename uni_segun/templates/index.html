@@ -135,160 +135,26 @@
     <div class="album py-5 bg-body-black">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for producto in productos %}
                 <div class="col">
                     <div class="card shadow-sm">
-                        <div style="background-image: url({% static 'imgs/audifonos.jpg' %});background-size:cover;height: 225px;background-repeat: no-repeat;"></div>
+                        <div style="background-image: url({{ producto.imagen.url }}); background-size: cover; height: 225px; background-repeat: no-repeat;"></div>
                         <div class="card-body">
-                            <h5 style="display: inline;">Audifonos</h5>
-                            <small class="text-body-secondary">(Electronica)</small>
-                            <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
+                            <h5 style="display: inline;" class="fw-bold">{{ producto.nombre }}</h5>
+                            <small class="text-body-secondary">({{ producto.categoria.nombre }})</small>
+                            <p class="card-text text-dark text-truncate">{{ producto.descripcion }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
                                 </div>
-                                <small class="text-body-secondary">$20.000</small>
+                                <small class="text-body-secondary preci-secondary">${{ producto.precio }}</small>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div style="background-image: url({% static 'imgs/tomosmanga.jpg' %});background-size:cover;height: 225px;background-repeat: no-repeat;"></div>
-                        <div class="card-body">
-                            <h5 style="display: inline;">Mangas</h5>
-                            <small class="text-body-secondary">(Anime)</small>
-                            <p class="card-text">Mangas epicos sobre historias que ni te imaginas que leerias alguna vez.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
-                                    <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
-                                </div>
-                                <small class="text-body-secondary">$20.000</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div style="background-image: url({% static 'imgs/notebook.jpeg' %});background-size:cover;height: 225px;background-repeat: no-repeat;"></div>
-                        <div class="card-body">
-                            <h5 style="display: inline;">Notebook</h5>
-                            <small class="text-body-secondary">(Electronica)</small>
-                            <p class="card-text">Una computadora portátil, computador portátil u ordenador portátil.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
-                                    <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
-                                </div>
-                                <small class="text-body-secondary">$20.000</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div style="background-image: url({% static 'imgs/chaquetaesadenaruto.png' %});background-size:cover;height: 225px;background-repeat: no-repeat;"></div>
-                        <div class="card-body">
-                            <h5 style="display: inline;">Chaqueta otaku</h5>
-                            <small class="text-body-secondary">(Anime)</small>
-                            <p class="card-text">Representa los mejores resultados de impresión en productos de una gran calidad.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
-                                    <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
-                                </div>
-                                <small class="text-body-secondary">$20.000</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div style="background-image: url({% static 'imgs/audifonos.jpg' %});background-size:cover;height: 225px;background-repeat: no-repeat;"></div>
-                        <div class="card-body">
-                            <h5 style="display: inline;">Audifonos</h5>
-                            <small class="text-body-secondary">(Electronica)</small>
-                            <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
-                                    <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
-                                </div>
-                                <small class="text-body-secondary">$20.000</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div style="background-image: url({% static 'imgs/audifonos.jpg' %});background-size:cover;height: 225px;background-repeat: no-repeat;"></div>
-                        <div class="card-body">
-                            <h5 style="display: inline;">Audifonos</h5>
-                            <small class="text-body-secondary">(Electronica)</small>
-                            <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
-                                    <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
-                                </div>
-                                <small class="text-body-secondary">$20.000</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div style="background-image: url({% static 'imgs/audifonos.jpg' %});background-size:cover;height: 225px;background-repeat: no-repeat;"></div>
-                        <div class="card-body">
-                            <h5 style="display: inline;">Audifonos</h5>
-                            <small class="text-body-secondary">(Electronica)</small>
-                            <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
-                                    <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
-                                </div>
-                                <small class="text-body-secondary">$20.000</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div style="background-image: url({% static 'imgs/audifonos.jpg' %});background-size:cover;height: 225px;background-repeat: no-repeat;"></div>
-                        <div class="card-body">
-                            <h5 style="display: inline;">Audifonos</h5>
-                            <small class="text-body-secondary">(Electronica)</small>
-                            <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
-                                    <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
-                                </div>
-                                <small class="text-body-secondary">$20.000</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div style="background-image: url({% static 'imgs/audifonos.jpg' %});background-size:cover;height: 225px;background-repeat: no-repeat;"></div>
-                        <div class="card-body">
-                            <h5 style="display: inline;">Audifonos</h5>
-                            <small class="text-body-secondary">(Electronica)</small>
-                            <p class="card-text">Disfruta de tu música favorita con la comodidad que brindan estos headphones inalámbricos.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
-                                    <button type="button" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#inicioSesion">Añadir al carro</button>
-                                </div>
-                                <small class="text-body-secondary">$20.000</small>
-                            </div>
-                        </div>
-                    </div>
+                {% endfor %}
+            </div>
                 </div>
             </div>
         </div>

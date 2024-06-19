@@ -1,4 +1,3 @@
-# urls.py
 from django.urls import path
 from . import views
 
@@ -10,10 +9,11 @@ urlpatterns = [
     path('formadepago/', views.formadepago, name='formadepago'),
     path('inicioUsuario/', views.inicioUsuario, name='inicioUsuario'),
     path('paginaProductoPrueva/', views.paginaProductoPrueva, name='paginaProductoPrueva'),
-
-    #subfunciones
     path('login/', views.login_view, name='login'),
-    path('inicioUsuario/', views.AgregarCarro, name='AgregarCarro'),
-    path('venderProducto/', views.venderP, name='venderP'),
-    
+    path('venderProducto/', views.venderProducto, name='venderProducto'),
+    path('agregar_al_carrito/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
+    path('disminuir_producto_offcanvas/<int:producto_id>/', views.disminuir_producto_offcanvas, name='disminuir_producto_offcanvas'),
+    path('disminuir_producto/<int:producto_id>/', views.disminuir_producto, name='disminuir_producto'),
+    path('aumentar_producto/<int:producto_id>/', views.aumentar_producto, name='aumentar_producto'),
+    path('limpiar_del_carrito/<int:producto_id>/', views.limpiar_del_carrito, name='limpiar_del_carrito'),
 ]

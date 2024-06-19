@@ -1,26 +1,151 @@
 # views.py
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Usuario
+from .models import Usuario, Producto, CategoriaProducto
 from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
 
 def index(request):
-    return render(request, 'index.html')
+    productos = Producto.objects.all()
+    context = {'productos': productos}
+    return render(request, 'index.html', context)
 
 def perfil(request):
-    return render(request, 'perfil.html')
+    carrito = request.session.get('carrito', [])
+    total = sum(item['precio'] * item['cantidad'] for item in carrito)
+    cant = sum(item['cantidad'] for item in carrito)
+    context = {
+        'carrito': carrito,
+        'total': total,
+        'cant':cant,
+        
+    }
+    return render(request, 'perfil.html', context)
 
 def carrodecompra(request):
-    return render(request, 'carrodecompra.html')
+    carrito = request.session.get('carrito', [])
+    total = sum(item['precio'] * item['cantidad'] for item in carrito)
+    cant = sum(item['cantidad'] for item in carrito)
+    context = {
+        'carrito': carrito,
+        'total': total,
+        'cant':cant
+    }
+    return render(request, 'carrodecompra.html', context)
+    
 
-def venderP(request):
+def agregar_al_carrito(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    carrito = request.session.get('carrito', [])
+    
+    for item in carrito:
+        if item['id'] == producto.id:
+            item['cantidad'] += 1
+            break
+    else:
+        carrito.append({
+            'id': producto.id,
+            'nombre': producto.nombre,
+            'descripcion':producto.descripcion,
+            'precio': float(producto.precio),  
+            'cantidad': 1,
+            'imagen': producto.imagen.url if producto.imagen else None
+        })
+    
+    request.session['carrito'] = carrito
+    return redirect('inicioUsuario')
+def aumentar_producto(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    carrito = request.session.get('carrito', [])
+    
+    for item in carrito:
+        if item['id'] == producto.id:
+            item['cantidad'] += 1
+            break
+    request.session['carrito'] = carrito
+    return redirect('carrodecompra')
+
+def disminuir_producto(request, producto_id):
+    carrito = request.session.get('carrito', [])
+    for item in carrito:
+        if item['id'] == producto_id:
+            item['cantidad'] -= 1
+            if item['cantidad'] <= 0:
+                carrito.remove(item)
+            break
+    request.session['carrito'] = carrito
+    return redirect('carrodecompra')
+
+def disminuir_producto_offcanvas(request, producto_id):
+    carrito = request.session.get('carrito', [])
+    for item in carrito:
+        if item['id'] == producto_id:
+            item['cantidad'] -= 1
+            if item['cantidad'] <= 0:
+                carrito.remove(item)
+            break
+    request.session['carrito'] = carrito
+    return redirect('inicioUsuario')
+
+
+def limpiar_del_carrito(request,producto_id):
+    carrito = request.session.get('carrito', [])
+    for item in carrito:
+        if item['id'] == producto_id:
+            carrito.remove(item)
+            request.session['carrito'] = carrito
+    return redirect('carrodecompra')
+
+def venderProducto(request):
+    if request.method == 'POST':
+        nombre = request.POST['nombre']
+        descripcion = request.POST['descripcion']
+        precio = request.POST['precio']
+        categoria_id = request.POST['categoria']
+        imagen = request.FILES['imagen']
+
+        try:
+            # Obtener la categoría
+            categoria = CategoriaProducto.objects.get(id=categoria_id)
+        except CategoriaProducto.DoesNotExist:
+            messages.error(request, 'La categoría seleccionada no existe.')
+            return redirect('venderProducto')
+
+        # Guardar la imagen
+        fs = FileSystemStorage()
+        filename = fs.save(imagen.name, imagen)
+        image_url = fs.url(filename)
+
+        # Crear el producto
+        producto = Producto(
+            nombre=nombre,
+            descripcion=descripcion,
+            precio=precio,
+            categoria=categoria,
+            imagen=image_url
+        )
+        producto.save()
+
+        messages.success(request, 'Producto publicado exitosamente.')
+        return redirect('inicioUsuario')
+
     return render(request, 'venderProducto.html')
 
 def formadepago(request):
     return render(request, 'formadepago.html')
 
 def inicioUsuario(request):
-    return render(request, 'inicioUsuario.html')
+    productos = Producto.objects.all()
+    carrito = request.session.get('carrito', [])
+    total = sum(item['precio'] * item['cantidad'] for item in carrito)
+    cant = sum(item['cantidad'] for item in carrito)
+    context = {
+        'carrito': carrito,
+        'total': total,
+        'cant':cant,
+        'productos': productos
+    }
+    return render(request, 'inicioUsuario.html', context)
 
 def paginaProductoPrueva(request):
     return render(request, 'paginaProductoPrueva.html')
@@ -28,15 +153,8 @@ def paginaProductoPrueva(request):
 def login_view(request):
     return redirect('inicioUsuario')
 
-def AgregarCarro(request):
-    nombre = request.POST['']
-    descripcion =  request.POST['']
-    precio =  request.POST['']
-    categoria = request.POST['']
-    img =  request.POST['']
 
-    return render(request, 'inicioUsuario.html')
-       
+
 def registro(request):
     if request.method == 'POST':
         nombre = request.POST['nombre']
