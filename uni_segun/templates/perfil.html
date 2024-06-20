@@ -60,7 +60,7 @@
                           <img src="{% static 'imgs/fotodeperfil.jpg' %}" class="float-end" style="height: 2dvw; width: 2dvw; border-radius: 50%;">
                       </button>
                       <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="{% url 'perfil' %}">Ver perfil</a></li>
+                          <li><a class="dropdown-item" href="#">Ver perfil</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="{% url 'index' %}">Cerrar sesión</a></li>
                       </ul>
@@ -166,26 +166,28 @@
                 <div class="card mb-4">
                     <div class="card-header">Detalles de cuenta</div>
                     <div class="card-body">
-                        <form>
+                      <form id="perfil-form" method="post" action="{% url 'actualizar_perfil' %}">
+                        {% csrf_token %}
                           
                               <h5>Información personal</h5>
                               <hr>
                             <!-- Form Group (username)-->
+                            <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
                             <div class="mb-3">
                                 <label class="small mb-1" for="inputUsername">Nombre de usuario</label>
-                                <input class="form-control" id="inputUsername" type="text" placeholder="Nombre usuario">
+                                <input class="form-control" id="inputUsername" type="text" placeholder="Nombre usuario" name="nombre" value="{{ usuario.nombre }}">
                             </div>
                             <!-- Form Row-->
                             <div class="row gx-3 mb-3">
                                 <!-- Form Group (first name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputFirstName">Nombres</label>
-                                    <input class="form-control" id="inputFirstName" type="text" placeholder="Ingrese su nombre" >
+                                    <input class="form-control" id="inputFirstName" type="text" placeholder="Ingrese su nombre" name="nombre" value="{{ usuario.nombre }}" >
                                 </div>
                                 <!-- Form Group (last name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Apellidos</label>
-                                    <input class="form-control" id="inputLastName" type="text" placeholder="Ingrese su apellido">
+                                    <input class="form-control" id="inputLastName" type="text" placeholder="Ingrese su apellido" name="apellido" value="{{ usuario.apellido }}">
                                 </div>
                             </div>
                             <!-- Form Row        -->
@@ -193,25 +195,25 @@
                                 <!-- Form Group (organization name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputOrgName">Nombre de organización</label>
-                                    <input class="form-control" id="inputOrgName" type="text" placeholder="Ingrese el nombre de su institucion" >
+                                    <input class="form-control" id="inputOrgName" type="text" placeholder="Ingrese el nombre de su institucion" name="academia" value="{{ usuario.academia }}" >
                                 </div>
                                 <!-- Form Group (location)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputLocation">Direccion organización</label>
-                                    <input class="form-control" id="inputLocation" type="text" placeholder="Ingrese la dirreccion de su institucion">
+                                    <input class="form-control" id="inputLocation" type="text" placeholder="Ingrese la dirreccion de su institucion" >
                                 </div>
                             </div>
                             <!-- Form Group (email address)-->
                             <div class="mb-3">
                                 <label class="small mb-1" for="inputEmailAddress">Correo electrónico</label>
-                                <input class="form-control" id="inputEmailAddress" type="email" placeholder="name@example.com">
+                                <input class="form-control" id="inputEmailAddress" type="email" placeholder="name@example.com" name="email" value="{{ usuario.email }}">
                             </div>
                             <!-- Form Row-->
                             <div class="row gx-3 mb-3">
                                 <!-- Form Group (phone number)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputPhone">Numero telefono</label>
-                                    <input class="form-control" id="inputPhone" type="tel" placeholder="+5692222222">
+                                    <input class="form-control" id="inputPhone" type="tel" placeholder="+5692222222" name="numero_de_telefono" value="{{ usuario.numero_de_telefono }}">
                                 </div>
                                 <!-- Form Group (birthday)-->
                                 <div class="col-md-6">
@@ -223,17 +225,19 @@
                               <h5>Dirección de entrega</h5>
                               <hr>
                               
+                              <input type="hidden" name="direccion_id" value="{{ direccion.id }}">
+      
                                 <div class="row gx-3 mb-3">
                                     <div class="mb-3">
                                         <label class="small mb-1" for="inputUsername">Region</label>
-                                        <input class="form-control" id="inputUsername" type="text" placeholder="ej:Metropolitana de Santiago" >
+                                        <input class="form-control" id="inputUsername" type="text" placeholder="ej:Metropolitana de Santiago" name="ciudad" value="" >
                                         <label class="small mb-1" for="inputUsername">Dirección</label>
-                                        <input class="form-control" id="inputUsername" type="text" placeholder="ej:Santiago, av.melipilla, 123">
+                                        <input class="form-control" id="inputUsername" type="text" placeholder="ej:Santiago, av.melipilla, 123" name="direccion" value="">
                                     </div>
                                 </div>
-                              
-                                <button class="btn btn-warning " type="button">Guardar cambios</button>
-                        </form>
+                               
+                                <button class="btn btn-warning " type="submit">Guardar cambios</button>
+                              </form>
                         
                     </div>
                    
@@ -247,7 +251,8 @@
         </div>
        
     </div>
-    
+      
+
 <!-- Footer -->
 <footer class="text-center text-lg-start text-muted bg-dark mt-3" style="background-color: black!important;" data-bs-theme="dark">
   <!-- Section: Links  -->
@@ -380,6 +385,7 @@
       <h6 class="total-pagar justify-content-center d-flex">Total a Pagar:<span>${{total}}</span></h6>
       <hr>
       <a href="{% url 'carrodecompra' %}" class="btn btn-warning" role="button">Ver carro</a></div></div>
-<script src="{% static 'bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+      <script src="{% static 'bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 # views.py
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import Usuario, Producto, CategoriaProducto
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponse, JsonResponse
+from .models import Direcciones, Usuario, Producto, CategoriaProducto
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 
@@ -10,7 +10,8 @@ def index(request):
     context = {'productos': productos}
     return render(request, 'index.html', context)
 
-def perfil(request):
+def perfil_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
     carrito = request.session.get('carrito', [])
     total = sum(item['precio'] * item['cantidad'] for item in carrito)
     cant = sum(item['cantidad'] for item in carrito)
@@ -18,9 +19,27 @@ def perfil(request):
         'carrito': carrito,
         'total': total,
         'cant':cant,
+        'usuario': usuario,
+        
         
     }
     return render(request, 'perfil.html', context)
+
+def actualizar_perfil(request):
+      if request.method == 'POST':
+        usuario_id = request.POST.get('usuario_id')
+        usuario = get_object_or_404(Usuario, id=usuario_id)
+        usuario.nombre = request.POST.get('nombre')
+        usuario.apellido = request.POST.get('apellido')
+        usuario.academia = request.POST.get('academia')
+        usuario.email = request.POST.get('email')
+        usuario.numero_de_telefono = request.POST.get('numero_de_telefono')
+        usuario.save()
+        
+
+        messages.success(request, 'Perfil actualizado exitosamente.')
+        return redirect('perfil_usuario', usuario_id=usuario.id)
+ 
 
 def carrodecompra(request):
     carrito = request.session.get('carrito', [])
@@ -132,9 +151,16 @@ def venderProducto(request):
     return render(request, 'venderProducto.html')
 
 def formadepago(request):
-    return render(request, 'formadepago.html')
+    carrito = request.session.get('carrito', [])
+    total = sum(item['precio'] * item['cantidad'] for item in carrito)
+    context = {
+        'total': total,
+        
+    }
+    return render(request, 'formadepago.html', context)
 
 def inicioUsuario(request):
+    usuarios = Usuario.objects.all() 
     productos = Producto.objects.all()
     carrito = request.session.get('carrito', [])
     total = sum(item['precio'] * item['cantidad'] for item in carrito)
@@ -143,7 +169,8 @@ def inicioUsuario(request):
         'carrito': carrito,
         'total': total,
         'cant':cant,
-        'productos': productos
+        'productos': productos,
+        'usuarios':usuarios
     }
     return render(request, 'inicioUsuario.html', context)
 
