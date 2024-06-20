@@ -11,7 +11,12 @@
     <title>ReShop Nero</title>
     <link rel="icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon" style="border-radius: 50%; object-fit: cover;">
     <style>
+        #errorNombre{visibility: hidden;color:red;}
+        #errorApellido{visibility: hidden;color:red;}
         #errorRun{visibility: hidden;color:red;}
+        #errorInstitucionAcademica{visibility: hidden;color:red;}
+        #errorEmail{visibility: hidden;color:red;}
+        #errorContraseña{visibility: hidden;color:red;}
         #errorTelefono{visibility: hidden;color:red;}
     </style>
 </head>
@@ -28,6 +33,7 @@
                         <div class="col-md-7">
                             <label for="validationCustom01" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="validationCustom01" name="nombre" required>
+                            <div id="errorNombre">...</div>
                         </div>
                         <div class="col-md-3"></div>
                     </div>
@@ -37,6 +43,7 @@
                         <div class="col-md-7">
                             <label for="validationCustom02" class="form-label">Apellido</label>
                             <input type="text" class="form-control" id="validationCustom02" name="apellido" required>
+                            <div id="errorApellido">...</div>
                         </div>
                         <div class="col-md-3"></div>
                     </div>
@@ -56,6 +63,7 @@
                         <div class="col-md-7">
                             <label for="validationCustom07" class="form-label">Institución académica</label>
                             <input type="text" class="form-control" id="validationCustom07" name="academia" required>
+                            <div id="errorInstitucionAcademica">...</div>
                         </div>
                         <div class="col-md-3"></div>
                     </div>
@@ -65,6 +73,7 @@
                         <div class="col-md-7">
                             <label for="validationCustom06" class="form-label">Email</label>
                             <input type="email" class="form-control" id="validationCustom06" name="email" required>
+                            <div id="errorEmail">...</div>
                         </div>
                         <div class="col-md-3"></div>
                     </div>
@@ -74,6 +83,7 @@
                         <div class="col-md-7">
                             <label for="validationCustom05" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="validationCustom05" name="contraseña" required>
+                            <div id="errorContraseña">...</div>
                         </div>
                         <div class="col-md-3"></div>
                     </div>

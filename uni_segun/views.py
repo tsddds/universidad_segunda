@@ -73,6 +73,7 @@ def agregar_al_carrito(request, producto_id):
     
     request.session['carrito'] = carrito
     return redirect('inicioUsuario')
+
 def aumentar_producto(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
     carrito = request.session.get('carrito', [])
