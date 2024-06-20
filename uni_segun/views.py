@@ -124,24 +124,17 @@ def venderProducto(request):
         imagen = request.FILES['imagen']
 
         try:
-            # Obtener la categoría
             categoria = CategoriaProducto.objects.get(id=categoria_id)
         except CategoriaProducto.DoesNotExist:
             messages.error(request, 'La categoría seleccionada no existe.')
             return redirect('venderProducto')
 
-        # Guardar la imagen
-        fs = FileSystemStorage()
-        filename = fs.save(imagen.name, imagen)
-        image_url = fs.url(filename)
-
-        # Crear el producto
         producto = Producto(
             nombre=nombre,
             descripcion=descripcion,
             precio=precio,
             categoria=categoria,
-            imagen=image_url
+            imagen=imagen  # Let Django handle the file upload
         )
         producto.save()
 

@@ -157,8 +157,8 @@
                 {% for producto in productos %}
                 <div class="col">
                     <div class="card shadow-sm">
-                        <div style="background-image: url({{ producto.imagen.url }}); background-size: cover; height: 225px; background-repeat: no-repeat;"></div>
-                        <div class="card-body">
+                      <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" style="height: 225px; width: 100%; object-fit: cover;">
+                      <div class="card-body">
                             <h5 style="display: inline;" class="fw-bold">{{ producto.nombre }}</h5>
                             <small class="text-body-secondary">({{ producto.categoria.nombre }})</small>
                             <p class="card-text text-dark text-truncate">{{ producto.descripcion }}</p>
