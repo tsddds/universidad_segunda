@@ -60,7 +60,11 @@
                             <img src="{% static 'imgs/fotodeperfil.jpg' %}" class="float-end" style="height: 2dvw; width: 2dvw; border-radius: 50%;">
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Ver perfil</a></li>
+                            {% for usuario in usuarios %}
+                          <li>
+                              <a href="{% url 'perfil_usuario' usuario.id %}">Ver Perfil</a>
+                          </li>
+                      {% endfor %}    
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{% url 'index' %}">Cerrar sesión</a></li>
                         </ul>
