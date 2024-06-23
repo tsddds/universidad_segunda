@@ -259,3 +259,44 @@ def paginaProductoPrueva(request, producto_id):
     }
     
     return render(request, 'paginaProductoPrueva.html',contexto)
+
+def editarProducto(request, producto_id):
+     if request.method == 'GET':
+        productovista = Producto.objects.get(id=producto_id)
+        usuarios = Usuario.objects.all() 
+        productos = Producto.objects.all()
+        carrito = request.session.get('carrito', [])
+        total = sum(item['precio'] * item['cantidad'] for item in carrito)
+        cant = sum(item['cantidad'] for item in carrito)
+        contexto = {
+            'carrito': carrito,
+            'total': total,
+            'cant':cant,
+            'usuarios':usuarios,
+            'productos': productos,
+            "producto":productovista
+        }
+        return render(request, 'editarProducto.html',contexto)
+     
+     if request.method == 'POST':
+        producto = Producto.objects.get(id=producto_id)
+        nombre = request.POST['nombre']
+        descripcion = request.POST['descripcion']
+        precio = request.POST['precio']
+        categoria_id = request.POST['categoria']
+        imagen = request.FILES['imagen']
+
+        try:
+            categoria = CategoriaProducto.objects.get(id=categoria_id)
+        except CategoriaProducto.DoesNotExist:
+            messages.error(request, 'La categoría seleccionada no existe.')
+            return redirect('editarProducto')
+
+        producto.nombre = nombre
+        producto.descripcion = descripcion
+        producto.precio = precio
+        producto.categoria = categoria
+        producto.imagen = imagen
+        producto.save()
+
+        return redirect("/misproductos/")

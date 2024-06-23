@@ -148,7 +148,7 @@
                                                     <a href="{% url 'paginaProductoPrueva' producto.id %}"><img src="{% static 'imgs/revisarSimbolo.png' %}" alt="" class="row ms-md-5" style="height: 5dvw; width: 5dvw;"></a>
                                                 </td>
                                                 <td>
-                                                  <a href=""><img src="{% static 'imgs/editarSimbolo.png' %}" alt="" class="row ms-md-5" style="height: 5dvw; width: 5dvw;"></a>
+                                                  <a href="{% url 'editarProducto' producto.id %}"><img src="{% static 'imgs/editarSimbolo.png' %}" alt="" class="row ms-md-5" style="height: 5dvw; width: 5dvw;"></a>
                                                 </td>
                                                 <td>
                                                   <a href="/eliminarProductos/{{producto.id}}"><img src="{% static 'imgs/elimarSimbolo.png' %}" alt="" class="row ms-md-5" style="height: 5dvw; width: 5dvw;"></a>
