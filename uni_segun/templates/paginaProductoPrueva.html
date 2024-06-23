@@ -108,25 +108,8 @@
       <div class="row gx-5">
         <aside class="col-lg-6">
           <div class="border rounded-4 mb-3 d-flex justify-content-center">
-            <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="{% static 'imgs/audifonos.jpg' %}">
-              <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{% static 'imgs/audifonos.jpg' %}" />
-            </a>
-          </div>
-          <div class="d-flex justify-content-center mb-3">
-            <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{% static 'imgs/audifonos.jpg' %}" class="item-thumb">
-              <img width="60" height="60" class="rounded-2" src="{% static 'imgs/audifonos.jpg' %}" />
-            </a>
-            <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{% static 'imgs/informacion_audifonos_2.jpeg' %}" class="item-thumb">
-              <img width="60" height="60" class="rounded-2" src="{% static 'imgs/audifonos.jpg' %}" />
-            </a>
-            <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{% static 'imgs/audifonos.jpg' %}" class="item-thumb">
-              <img width="60" height="60" class="rounded-2" src="{% static 'imgs/audifonos.jpg' %}" />
-            </a>
-            <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{% static 'imgs/audifonos.jpg' %}" class="item-thumb">
-              <img width="60" height="60" class="rounded-2" src="{% static 'imgs/audifonos.jpg' %}" />
-            </a>
-            <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{% static 'imgs/audifonos.jpg' %}" class="item-thumb">
-              <img width="60" height="60" class="rounded-2" src="{% static 'imgs/audifonos.jpg' %}" />
+            <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="{{ producto.imagen.url }}">
+              <img style="max-width: 350px; max-height: 350px; margin: auto;" class="rounded-4 fit" src="{{ producto.imagen.url }}" />
             </a>
           </div>
           <!-- thumbs-wrap.// -->
@@ -135,45 +118,20 @@
         <main class="col-lg-6">
           <div class="ps-lg-3">
             <h4 class="title text-dark">
-              Audifonos<br />
-              Redsone
+              {{ producto.nombre }}
             </h4>
             <div class="d-flex flex-row my-3">
-              <div class="text-warning mb-1 me-2">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span class="ms-1">
-                  4.5
-                </span>
-              </div>
-              <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>10 Pedidos</span>
               <span class="text-success ms-2">En stock</span>
             </div>
   
             <div class="mb-3">
-              <span class="h5">$75.000</span>
+              <span class="h5">${{ producto.precio }}</span>
               <span class="text-muted">Cada uno</span>
             </div>
   
-            <p>
-              Tremendos audifonos uwu
-            </p>
-  
             <div class="row">
-              <dt class="col-3">Tipo:</dt>
-              <dd class="col-9">Electrónica</dd>
-  
-              <dt class="col-3">Color</dt>
-              <dd class="col-9">Negro</dd>
-  
-              <dt class="col-3">Material</dt>
-              <dd class="col-9">Plástico</dd>
-  
-              <dt class="col-3">Marca</dt>
-              <dd class="col-9">Redsone</dd>
+              <dt class="col-3">Categoria:</dt>
+              <span class="col-3">{{ producto.categoria.nombre}}</span>
             </div>
   
             <hr />
@@ -211,67 +169,31 @@
             <!-- Pills navs -->
             <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
               <li class="nav-item d-flex" role="presentation">
-                <a class="nav-link d-flex align-items-center justify-content-center w-100 active ele-per" id="ex1-tab-1" data-mdb-toggle="pill" href="#ex1-pills-1" role="tab" aria-controls="ex1-pills-1" aria-selected="true">Especificaciones</a>
-              </li>
-              <li class="nav-item d-flex" role="presentation">
-                <a class="nav-link d-flex align-items-center justify-content-center w-100" style="color:#ffc107 ;" id="ex1-tab-2" data-mdb-toggle="pill" href="#ex1-pills-2" role="tab" aria-controls="ex1-pills-2" aria-selected="false">Informacion garantia</a>
-              </li>
-              <li class="nav-item d-flex" role="presentation">
-                <a class="nav-link d-flex align-items-center justify-content-center w-100" style="color:#ffc107 ;" id="ex1-tab-3" data-mdb-toggle="pill" href="#ex1-pills-3" role="tab" aria-controls="ex1-pills-3" aria-selected="false">Informacion envio</a>
-              </li>
-              <li class="nav-item d-flex" role="presentation">
-                <a class="nav-link d-flex align-items-center justify-content-center w-100" style="color:#ffc107 ;" id="ex1-tab-4" data-mdb-toggle="pill" href="#ex1-pills-4" role="tab" aria-controls="ex1-pills-4" aria-selected="false">Perfil de Vendedor</a>
+                <a class="nav-link d-flex align-items-center justify-content-center w-100 active ele-per" id="ex1-tab-1" data-mdb-toggle="pill" href="#ex1-pills-1" role="tab" aria-controls="ex1-pills-1" aria-selected="true">Detalles del Producto</a>
               </li>
             </ul>
             <!-- Pills navs -->
   
             <!-- Pills content -->
-            <div class="tab-content" id="ex1-content">
-              <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
-                <p>
-                  With supporting text below as a natural lead-in to additional content. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                  enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur.
-                </p>
-                <div class="row mb-2">
-                  <div class="col-12 col-md-6">
-                    <ul class="list-unstyled mb-0">
-                      <li><i class="fas fa-check text-success me-2"></i>Some great feature name here</li>
-                      <li><i class="fas fa-check text-success me-2"></i>Lorem ipsum dolor sit amet, consectetur</li>
-                      <li><i class="fas fa-check text-success me-2"></i>Duis aute irure dolor in reprehenderit</li>
-                      <li><i class="fas fa-check text-success me-2"></i>Optical heart sensor</li>
-                    </ul>
-                  </div>
-                  <div class="col-12 col-md-6 mb-0">
-                    <ul class="list-unstyled">
-                      <li><i class="fas fa-check text-success me-2"></i>Easy fast and ver good</li>
-                      <li><i class="fas fa-check text-success me-2"></i>Some great feature name here</li>
-                      <li><i class="fas fa-check text-success me-2"></i>Modern style and design</li>
-                    </ul>
-                  </div>
-                </div>
-                <table class="table border mt-3 mb-2">
-                  <tr>
-                    <th class="py-2">Display:</th>
-                    <td class="py-2">13.3-inch LED-backlit display with IPS</td>
-                  </tr>
-                  <tr>
-                    <th class="py-2">Processor capacity:</th>
-                    <td class="py-2">2.3GHz dual-core Intel Core i5</td>
-                  </tr>
-                  <tr>
-                    <th class="py-2">Camera quality:</th>
-                    <td class="py-2">720p FaceTime HD camera</td>
-                  </tr>
-                  <tr>
-                    <th class="py-2">Memory</th>
-                    <td class="py-2">8 GB RAM or 16 GB RAM</td>
-                  </tr>
-                  <tr>
-                    <th class="py-2">Graphics</th>
-                    <td class="py-2">Intel Iris Plus Graphics 640</td>
-                  </tr>
-                </table>
+            <div class="tab-content col-lg-12 " id="ex1-content">
+              <div class="tab-pane fade show active " id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                <p>{{ producto.descripcion}}</p>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
+                 <br>
               </div>
               
             </div>
@@ -335,11 +257,6 @@
       </div>
     </div>
   </section>
-
-
-
-
-
 
 </div>
 <!--fin cuerpo-->
@@ -448,12 +365,36 @@
     </div>
         <div class="offcanvas-body">
           
+          <div class="row-product">
+            {% for item in carrito %}
+            <div class="cart-product">
+                <div class="container text-center">
+                    <div class="row justify-content-start">
+                        <div class="col-4">
+                            <img src="{{ item.imagen }}" class="img-fluid" style="max-height: 60px;" alt="">
+                        </div>
+                        <div class="col-4">
+                            <h5 class="text-truncate">{{ item.nombre }}</h5>
+                            <h6><span>{{ item.cantidad }}</span>X${{ item.precio }}</h6>
+                        </div>
+                        <div class="col-4 d-flex justify-content-center align-items-center" style="padding-left:90px;">
+                          <form action="{% url 'disminuir_producto_offcanvas' item.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-close delete-btn" aria-label="Close"></button>
+                          </form>  
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
         </div>
         <hr>
-        <h6 class="total-pagar justify-content-center d-flex">Total a Pagar:<span>$00.00</span></h6>
+        
+        <h6 class="total-pagar justify-content-center d-flex">Total a Pagar:<span>${{total}}</span></h6>
         <hr>
-        <a href="{% url 'carrodecompra' %}" class="btn btn-warning desabilitado" role="button">Ver carro</a>
-  </div>
+        <a href="{% url 'carrodecompra' %}" class="btn btn-warning" role="button">Ver carro</a></div></div>
   <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
 <script src="{% static 'js/agregarproduct.js' %}"></script>
   <script src="{% static 'bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js' %}"></script>

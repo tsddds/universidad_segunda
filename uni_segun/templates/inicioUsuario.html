@@ -167,7 +167,7 @@
                             <p class="card-text text-dark text-truncate">{{ producto.descripcion }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{% url 'paginaProductoPrueva' %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
+                                    <a href="{% url 'paginaProductoPrueva' producto.id %}"><button type="button" class="btn btn-sm btn-outline-warning">Detalles</button></a>
                                     <form action="{% url 'agregar_al_carrito' producto.id %}" method="post">
                                       {% csrf_token %}
                                       <button type="submit" class="btn btn-sm btn-outline-warning">Añadir al carro</button>
