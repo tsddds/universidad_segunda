@@ -207,3 +207,19 @@ def registro(request):
             return redirect('inicioUsuario')
 
     return render(request, 'registro.html')
+
+
+def misproductos(request):
+    usuarios = Usuario.objects.all() 
+    productos = Producto.objects.all()
+    carrito = request.session.get('carrito', [])
+    total = sum(item['precio'] * item['cantidad'] for item in carrito)
+    cant = sum(item['cantidad'] for item in carrito)
+    context = {
+        'carrito': carrito,
+        'total': total,
+        'cant':cant,
+        'productos': productos,
+        'usuarios':usuarios
+    }
+    return render(request, 'misproductos.html', context)
