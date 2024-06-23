@@ -223,3 +223,21 @@ def misproductos(request):
         'usuarios':usuarios
     }
     return render(request, 'misproductos.html', context)
+
+def eliminarProductos(request, producto_id):
+    usuarios = Usuario.objects.all() 
+    productos = Producto.objects.all()
+    carrito = request.session.get('carrito', [])
+    total = sum(item['precio'] * item['cantidad'] for item in carrito)
+    cant = sum(item['cantidad'] for item in carrito)
+    context = {
+        'carrito': carrito,
+        'total': total,
+        'cant':cant,
+        'productos': productos,
+        'usuarios':usuarios
+    }
+    producto = Producto.objects.get(id=producto_id)
+    producto.delete()
+
+    return render(request, 'misproductos.html',context)
