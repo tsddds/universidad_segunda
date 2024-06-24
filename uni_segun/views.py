@@ -145,10 +145,12 @@ def venderProducto(request):
     return render(request, 'venderProducto.html')
 
 def formadepago(request):
+    usuarios = Usuario.objects.all() 
     carrito = request.session.get('carrito', [])
     total = sum(item['precio'] * item['cantidad'] for item in carrito)
     context = {
         'total': total,
+        'usuarios':usuarios
         
     }
     return render(request, 'formadepago.html', context)
