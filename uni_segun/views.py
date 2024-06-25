@@ -5,6 +5,10 @@ from .models import Direcciones, Usuario, Producto, CategoriaProducto
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from .forms import SignUpForm
+from django import forms
 
 def index(request):
     productos = Producto.objects.all()
@@ -171,10 +175,12 @@ def inicioUsuario(request):
     }
     return render(request, 'inicioUsuario.html', context)
 
+# para pillar al usuario haciendo maldades y enviarlo a donde se merece: al "index"
 def redireccioao(request):
     messages.success(request, ("Alto ahí vaquero.... esas cosas son del diaulo..."))
     return render(request, 'redireccionarte.html')
 
+# para loguear al usuario
 def login_view(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -182,26 +188,43 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, ("¡¡Has iniciado sesión!! uwu"))
+            messages.success(request, ("¡¡Ha iniciado sesión!! uwu"))
             return redirect('inicioUsuario')
         else:
             login(request, user)
-            messages.success(request, ("Ha ocurrido un error... intentalo nuevamente"))
+            messages.success(request, ("Ups.. ese no parece ser su usuario o su contraseña... intentelo nuevamente"))
             return redirect('index')
     else:
         return render(request, 'index.html')
 
-
+#cuando el usuario termina su sesión
 def logout_user(request):
-    messages.success(request, ("has terminado tu sesión... gracias por su estancia"))
+    messages.success(request, ("ha terminado su sesión... gracias por su estancia"))
     return redirect('index')
 
 
 def paginaProductoPrueva(request):
     return render(request, 'paginaProductoPrueva.html')
 
+#para registar usuario
 def register_user(request):
-    return render(request, 'registro.html')
+    form = SignUpForm()
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            #aqui logueamos al ususario
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, ("Ha sido registrado exitosamente."))
+            return redirect('inicioUsuario')
+        else:
+            messages.success(request, ("Error al registrar, intentelo nuevamente"))
+            return('registro')
+    else:
+        return render(request, 'registro.html', {'form': form})
 
 def misproductos(request):
     usuarios = Usuario.objects.all() 

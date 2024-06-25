@@ -10,112 +10,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <title>ReShop Nero</title>
     <link rel="icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon" style="border-radius: 50%; object-fit: cover;">
-    <style>
-        #errorNombre{visibility: hidden;color:red;}
-        #errorApellido{visibility: hidden;color:red;}
-        #errorRun{visibility: hidden;color:red;}
-        #errorInstitucionAcademica{visibility: hidden;color:red;}
-        #errorEmail{visibility: hidden;color:red;}
-        #errorContraseña{visibility: hidden;color:red;}
-        #errorTelefono{visibility: hidden;color:red;}
-    </style>
 </head>
 <body>
+{% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong> {{ message }} </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+{% endif %}
+    
     <div><h1 class="mb-3">Registro</h1></div>
     <div class="container">
         <div class="row justify-content-center ms-0 p-0 mb-10px">
-            <div class="col-md-5">
-                <form class="border bg-body-tertiary p-md-4 rounded-3 col-12" method="POST" action="/registro/">  
+            <div class="col-md-6 col-sm-12 col-lg-6 col-12">
+                <form id="form_registro" method="POST" action="{% url 'registro' %}">
                     {% csrf_token %}
-                    <!-- fila 1 -->
-                    <div class="row mb-3">
-                        <div class="col-md-3 "></div>
-                        <div class="col-md-7">
-                            <label for="validationCustom01" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="validationCustom01" name="nombre" required>
-                            <div id="errorNombre">...</div>
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <!-- fila 2 -->
-                    <div class="row mb-3">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-7">
-                            <label for="validationCustom02" class="form-label">Apellido</label>
-                            <input type="text" class="form-control" id="validationCustom02" name="apellido" required>
-                            <div id="errorApellido">...</div>
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <!-- fila 3 -->
-                    <div class="row mb-3">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-7">
-                            <label for="validationCustom03" class="form-label">Rut</label>
-                            <input type="text" class="form-control" id="validationCustom03" name="rut" required>
-                            <div id="errorRun">...</div>
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <!-- fila 4 -->
-                    <div class="row mb-3">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-7">
-                            <label for="validationCustom07" class="form-label">Institución académica</label>
-                            <input type="text" class="form-control" id="validationCustom07" name="academia" required>
-                            <div id="errorInstitucionAcademica">...</div>
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <!-- fila 5 -->
-                    <div class="row mb-3">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-7">
-                            <label for="validationCustom06" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="validationCustom06" name="email" required>
-                            <div id="errorEmail">...</div>
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <!-- fila 6 -->
-                    <div class="row mb-3">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-7">
-                            <label for="validationCustom05" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="validationCustom05" name="contraseña" required>
-                            <div id="errorContraseña">...</div>
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <!-- fila 7 -->
-                    <div class="row mb-3 mb-2">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-7">
-                            <label for="validationCustom04" class="form-label">Número Telefonico</label>
-                            <input type="text" class="form-control" id="validationCustom04" name="numero_de_telefono" required>
-                            <div id="errorTelefono">...</div> 
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>
-                    <!-- fila 8 -->
-                    <div class="row mb-3">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-6">  
-                            <input id="btnEnviar" value="Registrarse" type="submit" class="btn btn-warning">
-                        </div>
-                        <div class="col-md-3"></div>
-                    </div>    
+
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
                 </form>
             </div>
         </div>
     </div>
-    {% if messages %}
-    <div class="alert alert-info" role="alert">
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    </div>
-    {% endif %}
 
     <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
     <script src="{% static 'js/validacionRegistro.js' %}"></script>
