@@ -156,7 +156,26 @@
                                                   <a href="{% url 'editarProducto' producto.id %}"><img src="{% static 'imgs/editarSimbolo.png' %}" alt="" class="row ms-md-5" style="height: 5dvw; width: 5dvw;"></a>
                                                 </td>
                                                 <td>
+                                                  <!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <h5 class="modal-title" id="exampleModalLabel">¡ALERTA!</h5>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                          ¿Estás seguro de eliminar este producto?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                          <button type="button" class="btn btn-warning"><a href="/eliminarProductos/{{producto.id}}">Eliminar</a></button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>  
+                                                  <button type="button" class="btn btn-white" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="{% static 'imgs/elimarSimbolo.png' %}" alt="" class="row ms-md-5" style="height: 5dvw; width: 5dvw;"/></button>-->
                                                   <a href="/eliminarProductos/{{producto.id}}"><img src="{% static 'imgs/elimarSimbolo.png' %}" alt="" class="row ms-md-5" style="height: 5dvw; width: 5dvw;"></a>
+                                                  
                                               </td>
                                             </tr>
                                     </table>                           
@@ -270,6 +289,7 @@
       </div>
     </div>
   </footer>
+
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header ele-per" >
       <h5 class="offcanvas-title" id="offcanvasExampleLabel" >Carro</h5>
