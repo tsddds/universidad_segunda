@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from .models import Direcciones, Usuario, Producto, CategoriaProducto
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth import authenticate, login, logout
 
 def index(request):
     productos = Producto.objects.all()
@@ -155,7 +156,7 @@ def formadepago(request):
     }
     return render(request, 'formadepago.html', context)
 
-def inicioUsuario(request):
+def inicioUsuario(request):    
     usuarios = Usuario.objects.all() 
     productos = Producto.objects.all()
     carrito = request.session.get('carrito', [])
@@ -170,46 +171,37 @@ def inicioUsuario(request):
     }
     return render(request, 'inicioUsuario.html', context)
 
+def redireccioao(request):
+    messages.success(request, ("Alto ahí vaquero.... esas cosas son del diaulo..."))
+    return render(request, 'redireccionarte.html')
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, ("¡¡Has iniciado sesión!! uwu"))
+            return redirect('inicioUsuario')
+        else:
+            login(request, user)
+            messages.success(request, ("Ha ocurrido un error... intentalo nuevamente"))
+            return redirect('index')
+    else:
+        return render(request, 'index.html')
+
+
+def logout_user(request):
+    messages.success(request, ("has terminado tu sesión... gracias por su estancia"))
+    return redirect('index')
+
+
 def paginaProductoPrueva(request):
     return render(request, 'paginaProductoPrueva.html')
 
-def login_view(request):
-    return redirect('inicioUsuario')
-
-
-
-def registro(request):
-    if request.method == 'POST':
-        nombre = request.POST['nombre']
-        apellido = request.POST['apellido']
-        rut = request.POST['rut']
-        academia = request.POST['academia']
-        email = request.POST['email']
-        contraseña = request.POST['contraseña']
-        numero_de_telefono = request.POST['numero_de_telefono']
-
-        if Usuario.objects.filter(email=email).exists():
-            messages.error(request, 'El email ya está registrado.')
-        elif Usuario.objects.filter(rut=rut).exists():
-            messages.error(request, 'El RUT ya está registrado.')
-        elif Usuario.objects.filter(numero_de_telefono=numero_de_telefono).exists():
-            messages.error(request, 'El número de teléfono ya está registrado.')
-        else:
-            usuario = Usuario(
-                nombre=nombre,
-                apellido=apellido,
-                rut=rut,
-                academia=academia,
-                email=email,
-                contraseña=contraseña,
-                numero_de_telefono=numero_de_telefono
-            )
-            usuario.save()
-            messages.success(request, 'Usuario registrado exitosamente.')
-            return redirect('inicioUsuario')
-
+def register_user(request):
     return render(request, 'registro.html')
-
 
 def misproductos(request):
     usuarios = Usuario.objects.all() 

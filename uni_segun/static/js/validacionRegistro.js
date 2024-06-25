@@ -29,11 +29,7 @@ $(document).ready(function () {
                 }
 
                 //validar run
-                if(isNaN(run)){
-
-                    $("#errorRun").css("visibility", "visible").css("color", "red").text("Sólo se aceptan numeros");
-
-                }else if(run == '' ){
+                if(run == '' ){
                     $("#errorRun").css("visibility", "visible").css("color", "red").text("Tienes rellenar este campo");
                 }
                 else{
@@ -85,7 +81,7 @@ $(document).ready(function () {
 
 
                 if(flag && flag1 && flag2 && flag3 && flag4 && flag5 && flag6 ) { // comparo que esten llenos (true or false)
-                    window.location.href = '{{  }}'; //mando al ususario al link
+                    window.location.href = 'index.html'; //mando al ususario al link
                   }
     });
 });

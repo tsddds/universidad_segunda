@@ -1,3 +1,4 @@
+{% if user.is_authenticated %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -393,3 +394,8 @@
       <script src="{% static 'bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
+{% else %}
+  <script>
+    window.location.href = "{% url 'redireccionarte' %}";
+  </script>
+{% endif %}
