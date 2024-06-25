@@ -170,9 +170,6 @@ def inicioUsuario(request):
     }
     return render(request, 'inicioUsuario.html', context)
 
-def paginaProductoPrueva(request):
-    return render(request, 'paginaProductoPrueva.html')
-
 def login_view(request):
     return redirect('inicioUsuario')
 
