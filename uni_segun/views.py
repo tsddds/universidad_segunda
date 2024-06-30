@@ -1,6 +1,8 @@
 # views.py
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, JsonResponse
+from django.urls import reverse
+import requests
 from .models import Direcciones, Usuario, Producto, CategoriaProducto
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
@@ -9,7 +11,32 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
 from django import forms
+from django.conf import settings
 
+def obtener_tasa_cambio():
+    url = f"https://v6.exchangerate-api.com/v6/{settings.EXCHANGE_RATE_API_KEY}/latest/CLP"
+    response = requests.get(url)
+    data = response.json()
+    return data['conversion_rates']['USD']
+
+def convertir_moneda(request):
+    tasa_cambio = obtener_tasa_cambio()
+    dolares = None
+    pesos_chilenos = None
+
+    if request.method == 'POST':
+        pesos_chilenos = float(request.POST.get('pesos_chilenos'))
+        dolares = pesos_chilenos * tasa_cambio
+
+    context = {
+        'tasa_cambio': tasa_cambio,
+        'pesos_chilenos': pesos_chilenos,
+        'dolares': dolares,
+    }
+    return render(request, 'convertir_moneda.html', context)
+def convertir(request):
+    carrito = request.session.get('carrito', [])
+    return redirect('convertir_moneda')
 def index(request):
     productos = Producto.objects.all()
     context = {'productos': productos}
@@ -78,7 +105,46 @@ def agregar_al_carrito(request, producto_id):
     
     request.session['carrito'] = carrito
     return redirect('inicioUsuario')
-
+def agregar_al_carritos(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    carrito = request.session.get('carrito', [])
+    
+    for item in carrito:
+        if item['id'] == producto.id:
+            item['cantidad'] += 1
+            break
+    else:
+        carrito.append({
+            'id': producto.id,
+            'nombre': producto.nombre,
+            'descripcion':producto.descripcion,
+            'precio': float(producto.precio),  
+            'cantidad': 1,
+            'imagen': producto.imagen.url if producto.imagen else None
+        })
+    
+    request.session['carrito'] = carrito
+    return redirect(reverse('paginaProductoPrueva', args=[producto_id]))
+def comprarAhora(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    carrito = request.session.get('carrito', [])
+    
+    for item in carrito:
+        if item['id'] == producto.id:
+            item['cantidad'] += 1
+            break
+    else:
+        carrito.append({
+            'id': producto.id,
+            'nombre': producto.nombre,
+            'descripcion':producto.descripcion,
+            'precio': float(producto.precio),  
+            'cantidad': 1,
+            'imagen': producto.imagen.url if producto.imagen else None
+        })
+    
+    request.session['carrito'] = carrito
+    return redirect('carrodecompra')
 def aumentar_producto(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
     carrito = request.session.get('carrito', [])
@@ -204,7 +270,20 @@ def logout_user(request):
 
 
 def paginaProductoPrueva(request):
+    usuarios = Usuario.objects.all() 
+    productos = Producto.objects.all()
+    carrito = request.session.get('carrito', [])
+    total = sum(item['precio'] * item['cantidad'] for item in carrito)
+    cant = sum(item['cantidad'] for item in carrito)
+    context = {
+        'carrito': carrito,
+        'total': total,
+        'cant':cant,
+        'productos': productos,
+        'usuarios':usuarios
+    }
     return render(request, 'paginaProductoPrueva.html')
+
 
 #para registar usuario
 def register_user(request):

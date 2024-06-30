@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversión de Moneda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/0poYTc61HFT/jvbQVH4Pohw5gQOhMimrY6Q7fX" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Conversión de Pesos Chilenos a Dólares</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="pesos_chilenos" class="form-label">Monto en Pesos Chilenos</label>
+                <input type="number" class="form-control" id="pesos_chilenos" name="pesos_chilenos" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Convertir</button>
+        </form>
+        {% if dolares is not None %}
+            <h2 class="mt-4">Resultados:</h2>
+            <p>Tasa de Cambio: 1 CLP = {{ tasa_cambio }} USD</p>
+            <p>{{ pesos_chilenos }} CLP son aproximadamente {{ dolares }} USD</p>
+        {% endif %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-5U78YP8iDPBlYlF57HFN/ZjLB7zrJ6Aa+fvZLJr8dU05jxN7Kgo5z4TLydYG4ndF" crossorigin="anonymous"></script>
+</body>
+</html>
