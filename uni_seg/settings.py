@@ -130,3 +130,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EXCHANGE_RATE_API_KEY = 'cda67851361eaa5f190c7bf1'
+
+# Redirecciones al iniciar y terminar sesión
+
+LOGIN_URL = '/inicioUsuario/'
+LOGIN_REDIRECT_URL = '/' 

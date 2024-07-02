@@ -12,6 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
 from django import forms
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 def obtener_tasa_cambio():
     url = f"https://v6.exchangerate-api.com/v6/{settings.EXCHANGE_RATE_API_KEY}/latest/CLP"
@@ -34,14 +35,17 @@ def convertir_moneda(request):
         'dolares': dolares,
     }
     return render(request, 'convertir_moneda.html', context)
+
 def convertir(request):
     carrito = request.session.get('carrito', [])
     return redirect('convertir_moneda')
+
 def index(request):
     productos = Producto.objects.all()
     context = {'productos': productos}
     return render(request, 'index.html', context)
 
+@login_required
 def perfil_usuario(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
     carrito = request.session.get('carrito', [])
@@ -57,6 +61,7 @@ def perfil_usuario(request, usuario_id):
     }
     return render(request, 'perfil.html', context)
 
+@login_required
 def actualizar_perfil(request):
       if request.method == 'POST':
         usuario_id = request.POST.get('usuario_id')
@@ -72,7 +77,7 @@ def actualizar_perfil(request):
         messages.success(request, 'Perfil actualizado exitosamente.')
         return redirect('perfil_usuario', usuario_id=usuario.id)
  
-
+@login_required
 def carrodecompra(request):
     carrito = request.session.get('carrito', [])
     total = sum(item['precio'] * item['cantidad'] for item in carrito)
@@ -84,7 +89,7 @@ def carrodecompra(request):
     }
     return render(request, 'carrodecompra.html', context)
     
-
+@login_required
 def agregar_al_carrito(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
     carrito = request.session.get('carrito', [])
@@ -105,6 +110,8 @@ def agregar_al_carrito(request, producto_id):
     
     request.session['carrito'] = carrito
     return redirect('inicioUsuario')
+
+@login_required
 def agregar_al_carritos(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
     carrito = request.session.get('carrito', [])
@@ -125,6 +132,8 @@ def agregar_al_carritos(request, producto_id):
     
     request.session['carrito'] = carrito
     return redirect(reverse('paginaProductoPrueva', args=[producto_id]))
+
+@login_required
 def comprarAhora(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
     carrito = request.session.get('carrito', [])
@@ -145,6 +154,8 @@ def comprarAhora(request, producto_id):
     
     request.session['carrito'] = carrito
     return redirect('carrodecompra')
+
+@login_required
 def aumentar_producto(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
     carrito = request.session.get('carrito', [])
@@ -156,6 +167,7 @@ def aumentar_producto(request, producto_id):
     request.session['carrito'] = carrito
     return redirect('carrodecompra')
 
+@login_required
 def disminuir_producto(request, producto_id):
     carrito = request.session.get('carrito', [])
     for item in carrito:
@@ -167,6 +179,7 @@ def disminuir_producto(request, producto_id):
     request.session['carrito'] = carrito
     return redirect('carrodecompra')
 
+@login_required
 def disminuir_producto_offcanvas(request, producto_id):
     carrito = request.session.get('carrito', [])
     for item in carrito:
@@ -178,7 +191,7 @@ def disminuir_producto_offcanvas(request, producto_id):
     request.session['carrito'] = carrito
     return redirect('inicioUsuario')
 
-
+@login_required
 def limpiar_del_carrito(request,producto_id):
     carrito = request.session.get('carrito', [])
     for item in carrito:
@@ -187,6 +200,7 @@ def limpiar_del_carrito(request,producto_id):
             request.session['carrito'] = carrito
     return redirect('carrodecompra')
 
+@login_required
 def venderProducto(request):
     if request.method == 'POST':
         nombre = request.POST['nombre']
@@ -215,6 +229,7 @@ def venderProducto(request):
 
     return render(request, 'venderProducto.html')
 
+@login_required
 def formadepago(request):
     usuarios = Usuario.objects.all() 
     carrito = request.session.get('carrito', [])
@@ -241,9 +256,9 @@ def inicioUsuario(request):
     }
     return render(request, 'inicioUsuario.html', context)
 
-# para pillar al usuario haciendo maldades y enviarlo a donde se merece: al "index"
+# para enviar al usuario al index 
 def redireccioao(request):
-    messages.success(request, ("Alto ahí vaquero.... esas cosas son del diaulo..."))
+    messages.success(request, ("No has iniciado sesión..."))
     return render(request, 'redireccionarte.html')
 
 # para loguear al usuario
@@ -258,17 +273,18 @@ def login_view(request):
             return redirect('inicioUsuario')
         else:
             login(request, user)
-            messages.success(request, ("Ups.. ese no parece ser su usuario o su contraseña... intentelo nuevamente"))
+            messages.success(request, ("Ups.. esa no parece ser su contraseña o su usuario... intentelo nuevamente"))
             return redirect('index')
     else:
         return render(request, 'index.html')
 
 #cuando el usuario termina su sesión
 def logout_user(request):
+    logout(request)
     messages.success(request, ("ha terminado su sesión... gracias por su estancia"))
     return redirect('index')
 
-
+@login_required
 def paginaProductoPrueva(request):
     usuarios = Usuario.objects.all() 
     productos = Producto.objects.all()
@@ -305,6 +321,7 @@ def register_user(request):
     else:
         return render(request, 'registro.html', {'form': form})
 
+@login_required
 def misproductos(request):
     usuarios = Usuario.objects.all() 
     productos = Producto.objects.all()
@@ -320,6 +337,7 @@ def misproductos(request):
     }
     return render(request, 'misproductos.html', context)
 
+@login_required
 def eliminarProductos(request, producto_id):
     usuarios = Usuario.objects.all() 
     productos = Producto.objects.all()
@@ -338,6 +356,7 @@ def eliminarProductos(request, producto_id):
 
     return render(request, 'misproductos.html',context)
 
+@login_required
 def paginaProductoPrueva(request, producto_id):
     productovista = Producto.objects.get(id=producto_id)
     usuarios = Usuario.objects.all() 
@@ -356,6 +375,7 @@ def paginaProductoPrueva(request, producto_id):
     
     return render(request, 'paginaProductoPrueva.html',contexto)
 
+@login_required
 def editarProducto(request, producto_id):
      if request.method == 'GET':
         productovista = Producto.objects.get(id=producto_id)
