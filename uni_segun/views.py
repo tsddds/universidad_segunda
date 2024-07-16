@@ -13,6 +13,7 @@ from .forms import SignUpForm
 from django import forms
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 
 def obtener_tasa_cambio():
     url = f"https://v6.exchangerate-api.com/v6/{settings.EXCHANGE_RATE_API_KEY}/latest/CLP"
@@ -264,19 +265,24 @@ def redireccioao(request):
 # para loguear al usuario
 def login_view(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            messages.success(request, ("¡¡Ha iniciado sesión!! uwu"))
-            return redirect('inicioUsuario')
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, "¡¡Ha iniciado sesión!! uwu")
+                return redirect('inicioUsuario')
+            else:
+                messages.error(request, "Ups.. esa no parece ser su contraseña o su usuario... intentelo nuevamente")
+                return redirect('index')
         else:
-            login(request, user)
-            messages.success(request, ("Ups.. esa no parece ser su contraseña o su usuario... intentelo nuevamente"))
+            messages.error(request, "Ups.. esa no parece ser su contraseña o su usuario... intentelo nuevamente")
             return redirect('index')
     else:
-        return render(request, 'index.html')
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form': form})
 
 #cuando el usuario termina su sesión
 def logout_user(request):
