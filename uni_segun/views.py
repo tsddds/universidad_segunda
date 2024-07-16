@@ -310,14 +310,18 @@ def register_user(request):
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            #aqui logueamos al ususario
+            # Aquí logueamos al usuario
             user = authenticate(username=username, password=password)
-            login(request, user)
-            messages.success(request, ("Ha sido registrado exitosamente."))
-            return redirect('inicioUsuario')
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Ha sido registrado exitosamente.")
+                return redirect('inicioUsuario')
+            else:
+                messages.error(request, "Autenticación fallida. Por favor, intente iniciar sesión.")
+                return redirect('login')
         else:
-            messages.success(request, ("Error al registrar, intentelo nuevamente"))
-            return('registro')
+            messages.error(request, "Error al registrar, inténtelo nuevamente")
+            return render(request, 'registro.html', {'form': form})
     else:
         return render(request, 'registro.html', {'form': form})
 
