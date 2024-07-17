@@ -284,7 +284,7 @@ def login_view(request):
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})
 
-#cuando el usuario termina su sesión
+#cuando el usuario termina su sesión pasa estp
 def logout_user(request):
     logout(request)
     messages.success(request, ("ha terminado su sesión... gracias por su estancia"))
@@ -307,7 +307,7 @@ def paginaProductoPrueva(request):
     return render(request, 'paginaProductoPrueva.html')
 
 
-#para registar usuario
+#pa registar usuario
 def register_user(request):
     form = SignUpForm()
     if request.method == "POST":
@@ -316,7 +316,6 @@ def register_user(request):
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            # Aquí logueamos al usuario
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
